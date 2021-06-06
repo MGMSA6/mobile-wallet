@@ -115,20 +115,25 @@ public class MobileVerificationActivity extends BaseActivity implements
     public void onNextClicked() {
         Utils.hideSoftKeyboard(this);
 
-        mFabNext.setClickable(false);
-        mProgressBar.setVisibility(View.VISIBLE);
-        mTvVerifyingOtp.setVisibility(View.VISIBLE);
-        mEtOtp.setClickable(false);
-        mEtOtp.setFocusableInTouchMode(false);
-        mEtOtp.setFocusable(false);
+        if (!mEtOtp.getText().toString().equals("")) {
+            mFabNext.setClickable(false);
+            mProgressBar.setVisibility(View.VISIBLE);
+            mTvVerifyingOtp.setVisibility(View.VISIBLE);
+            mEtOtp.setClickable(false);
+            mEtOtp.setFocusableInTouchMode(false);
+            mEtOtp.setFocusable(false);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mMobileVerificationPresenter.verifyOTP(mEtOtp.getText().toString());
-            }
-        }, 1500);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mMobileVerificationPresenter.verifyOTP(mEtOtp.getText().toString());
+                }
+            }, 1500);
+        }else{
+            showToast(getString(R.string.enter_valid_otp));
+
+        }
     }
 
     @Override
